@@ -75,9 +75,17 @@ app.post("/classify", async (req, res) => {
 
     const content = completion.choices[0].message.content;
 
-    // 3️⃣  The model already outputs valid JSON. Return it verbatim.
-    //     (Optionally parse to validate: JSON.parse(content))
-    res.type("application/json").send(content);
+    // 3️⃣  Parse the string so we return proper JSON (no escaped characters)
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      return res
+        .status(502)
+        .json({ error: "LLM did not return valid JSON payload" });
+    }
+
+    return res.json(data); // nicely formatted JSON
   } catch (err) {
     console.error(err);
     res.status(502).json({ error: String(err) });
