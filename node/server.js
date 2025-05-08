@@ -73,7 +73,7 @@ app.post("/classify", async (req, res) => {
       response_format: { type: "json_object" },
     });
 
-    const content = completion.choices[0].message.content;
+    const raw = completion.choices[0].message.content; // stringified JSON
 
     // 3️⃣  Parse the string so we return proper JSON (no escaped characters)
     let data;
