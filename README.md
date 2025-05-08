@@ -80,8 +80,9 @@ All pinned in **requirements.txt**.
 
 ## 📦 Project layout
 
-
+```
 scamshield/
 ├── scamshield.py      # FastAPI app
 ├── requirements.txt   # frozen deps
 └── Dockerfile         # multi-arch container recipe
+```
