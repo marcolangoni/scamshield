@@ -1,0 +1,10 @@
+# --- core ---
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+
+# --- OpenAI stack ---
+openai>=1.33.0   # version that already supports httpx>=0.27
+httpx>=0.27.0    # now safe
+
+# (you can delete the httpx line entirely; openai brings the right version,
+#  but keeping it explicit prevents accidental downgrades)
