@@ -56,7 +56,17 @@ docker run -d \
 
 ## 🔌 REST API
 
+| Method | Path        | Payload (body)                                    | Response (example) |
+|--------|-------------|---------------------------------------------------|--------------------|
+| POST   | `/classify` | ```json\n{ "callId": "abc-123", "text": "chunk of speech" }\n``` | ```json\n{\n  "reason": "Caller impersonates bank and pressures victim for PIN.",\n  "certainty_level": 87\n}\n``` |
 
+
+```json
+{
+“reason”: “Caller impersonates bank and pressures victim for PIN.”,
+“certainty_level”: 87
+}
+```
 ---
 ## 🛠 Requirements
 
