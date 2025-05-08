@@ -58,7 +58,11 @@ docker run -d \
 
 | Method | Path        | Payload (body)                                    | Response (example) |
 |--------|-------------|---------------------------------------------------|--------------------|
-| POST   | `/classify` | ```json { "callId": "abc-123", "text": "chunk of speech" }``` | ```json{\n  "reason": "Caller impersonates bank and pressures victim for PIN.",\n  "certainty_level": 87}``` |
+| POST   | `/classify` | ```json 
+{ "callId": "abc-123", "text": "chunk of speech" }
+``` | ```json
+{"reason": "Caller impersonates bank and pressures victim for PIN.",  "certainty_level": 87}
+``` |
 
 
 ```json
