@@ -26,3 +26,27 @@ export OPENAI_API_KEY=sk-••••••••
 uvicorn scamshield:app --host 0.0.0.0 --port 8000
 ```
 
+## 🐳 Run in Docker
+
+The image is fully self-contained; just inject your OpenAI key at runtime.
+
+
+```bash
+# 1. Build locally
+
+docker buildx build \
+  --platform linux/amd64 \
+  -t scamshield:latest .
+
+# 2. Or pull the published image
+docker pull ghcr.io/marcolangoni/scamshield:latest
+
+# 3. Run
+
+docker run -d \
+  -e OPENAI_API_KEY=sk-•••••••• \
+  -p 8000:8000 \
+  --name scamshield \
+  scamshield:latest
+
+```
