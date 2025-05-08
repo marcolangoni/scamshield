@@ -26,6 +26,8 @@ export OPENAI_API_KEY=sk-••••••••
 uvicorn scamshield:app --host 0.0.0.0 --port 8000
 ```
 
+---
+
 ## 🐳 Run in Docker
 
 The image is fully self-contained; just inject your OpenAI key at runtime.
@@ -50,3 +52,26 @@ docker run -d \
   scamshield:latest
 
 ```
+---
+
+## 🔌 REST API
+
+
+---
+## 🛠 Requirements
+
+* Python ≥ 3.10  
+* `openai` ≥ 1.33.0 (new `httpx` stack)  
+* FastAPI 0.111 / Uvicorn 0.29
+
+All pinned in **requirements.txt**.
+
+---
+
+## 📦 Project layout
+
+
+scamshield/
+├── scamshield.py      # FastAPI app
+├── requirements.txt   # frozen deps
+└── Dockerfile         # multi-arch container recipe
