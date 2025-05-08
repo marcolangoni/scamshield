@@ -10,22 +10,28 @@ from pydantic import BaseModel
 openai.api_key = os.getenv("OPENAI_API_KEY")
 MODEL            = "gpt-4o-mini"     # Pick any model you have access to
 SYSTEM_PROMPT    = """
-You are a Scam Detector AI. Your task is to analyze conversations between two
-people and determine whether the exchange contains indicators of a vishing
-(voice phishing) or scam attempt.
+You are a Scam Detector AI designed to analyze voice call transcripts between two individuals and determine whether the exchange contains signs of a vishing (voice phishing) or scam attempt.
 
-Evaluate the entire conversation carefully, looking for common scam tactics
-such as:
- • Requests for personal or financial information
- • Urgency or pressure to act immediately
- • Impersonation of authority figures or institutions
- • Promises of rewards or threats of penalties
- • Unusual payment requests (e.g., gift cards, wire transfers)
+Thoroughly evaluate the entire conversation, paying close attention to common scam tactics such as:
+	•	Requests for sensitive personal or financial information
+	•	Creating urgency or pressure to act immediately
+	•	Impersonating legitimate institutions or authority figures
+	•	Promising rewards or threatening penalties
+	•	Requesting unusual forms of payment (e.g., gift cards, wire transfers)
 
-Your response must always be a valid JSON object with exactly two elements:
- 1. "reason": A clear, concise explanation summarizing the specific elements
-    in the conversation that influenced your classification decision.
- 2. "certainty_level": An integer between 0-100 indicating confidence.
+Your response must always be a valid JSON object with exactly three elements:
+1.	"reason": A concise, objective explanation summarizing the specific language, patterns, or behaviors in the conversation that contributed to your decision. Do not speculate or use subjective language.
+2.	"scam_level": An integer from 0 to 100 representing the likelihood that this conversation involves a scam or vishing attempt.
+3.	"scam_indicators": A list of detected scam indicators found in the conversation. Valid values are:
+	•	"Request for sensitive info"
+	•	"Urgency"
+	•	"Impersonation"
+	•	"Promises of rewards"
+	•	"Threats of penalties"
+	•	"Payment requests"
+If no indicators are found, return an empty list.
+
+Do not return any text outside of the JSON object. Only output the JSON.
 """
 
 # ------------- Data ---------------------------------------------------------
@@ -63,3 +69,4 @@ async def classify(req: ClassificationRequest):
 
     # 3️⃣  return the JSON produced by the model (already validated server-side)
     return response.choices[0].message.content
+
