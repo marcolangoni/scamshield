@@ -1,8 +1,10 @@
+import json
 import os
 from typing import Dict, List
 
 import openai
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 # ------------- Config --------------------------------------------------------
@@ -68,5 +70,14 @@ async def classify(req: ClassificationRequest):
         raise HTTPException(status_code=502, detail=str(e))
 
     # 3️⃣  return the JSON produced by the model (already validated server-side)
-    return response.choices[0].message.content
+    raw = response.choices[0].message.content            # string
+    try:
+        data = json.loads(raw)                             # dict ✅
+    except json.JSONDecodeError:
+        raise HTTPException(
+            status_code=502,
+            detail="LLM did not return valid JSON",
+        )
 
+    return JSONResponse(content=data)                      # clean JSON out
+    
