@@ -75,7 +75,7 @@ async def classify(req: ClassificationRequest):
         data = json.loads(raw)                             # dict ✅
     except json.JSONDecodeError:
         raise HTTPException(
-            status_code=502,
+            status_code=500,
             detail="LLM did not return valid JSON",
         )
 
