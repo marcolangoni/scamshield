@@ -1,0 +1,13 @@
+{
+  "name": "scamshield",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.0",
+    "openai": "^1.33.0"   // must be ≥ 1.33 to support httpx 0.27+ equivalence
+  }
+}
